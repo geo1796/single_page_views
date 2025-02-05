@@ -14,7 +14,7 @@ class DrawerStyle {
 
   const DrawerStyle({
     this.color = Colors.blue,
-    this.spacing = 10.0,
+    this.spacing = 25.0,
     this.expandedWidth = 150.0,
     this.collapsedWidth = 50.0,
     this.expandedHeader = const Icon(Icons.arrow_back_ios, color: Colors.white),

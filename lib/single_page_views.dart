@@ -7,6 +7,16 @@ import 'package:single_page_views/styles/drawer_style.dart';
 import 'package:single_page_views/widgets/single_page_drawer.dart';
 import 'package:single_page_views/widgets/single_page_scaffold.dart';
 
+late final bool _initialized;
+
+bool get isInitialized {
+  try {
+    return _initialized;
+  } catch (_) {
+    return false;
+  }
+}
+
 SinglePageViews buildSinglePageViews(
   List<SinglePageView> views, {
   SinglePageView? initialView,
@@ -32,6 +42,8 @@ SinglePageViews buildSinglePageViews(
 
   setDrawerStateController(DrawerStateController(initialDrawerState));
 
+  _initialized = true;
+
   return SinglePageViews();
 }
 
@@ -40,6 +52,11 @@ class SinglePageViews extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (!isInitialized) {
+      throw Exception(
+          'don\'t use constructor of SinglePageViews: call `buildSinglePageViews` instead');
+    }
+
     return Stack(
       children: [
         SinglePageScaffold(),
