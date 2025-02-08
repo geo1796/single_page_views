@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:single_page_views/controllers/active_view_controller.dart';
-import 'package:single_page_views/controllers/drawer_state_controller.dart';
-import 'package:single_page_views/model/drawer_state.dart';
+import 'package:single_page_views/controllers/nav_bar_state_controller.dart';
+import 'package:single_page_views/model/nav_bar_state.dart';
 import 'package:single_page_views/model/single_page_view.dart';
-import 'package:single_page_views/styles/drawer_style.dart';
+import 'package:single_page_views/styles/nav_bar_style.dart';
 
 class SinglePageScaffold extends StatelessWidget {
   const SinglePageScaffold({super.key});
 
-  double get _drawerWidth => drawerStateController.isExpanded
-      ? drawerStyle.expandedWidth
-      : drawerStyle.collapsedWidth;
+  double get _drawerWidth => navBarStateController.isExpanded
+      ? navBarStyle.expandedWidth
+      : navBarStyle.collapsedWidth;
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder<DrawerState>(
-      valueListenable: drawerStateController,
+    return ValueListenableBuilder<NavBarState>(
+      valueListenable: navBarStateController,
       builder: (context, _, child) => Positioned(
-        left: _drawerWidth,
+        left: navBarStyle.position.isLeft ? _drawerWidth : 0,
         top: 0,
         bottom: 0,
-        right: 0,
+        right: navBarStyle.position.isRight ? _drawerWidth : 0,
         child: child!,
       ),
       child: ValueListenableBuilder<SinglePageView>(

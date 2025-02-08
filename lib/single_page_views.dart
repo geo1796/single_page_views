@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:single_page_views/controllers/active_view_controller.dart';
-import 'package:single_page_views/controllers/drawer_state_controller.dart';
-import 'package:single_page_views/model/drawer_state.dart';
+import 'package:single_page_views/controllers/nav_bar_state_controller.dart';
+import 'package:single_page_views/model/nav_bar_state.dart';
 import 'package:single_page_views/model/single_page_view.dart';
-import 'package:single_page_views/styles/drawer_style.dart';
-import 'package:single_page_views/widgets/single_page_drawer.dart';
+import 'package:single_page_views/styles/nav_bar_style.dart';
+import 'package:single_page_views/widgets/single_page_nav_bar.dart';
 import 'package:single_page_views/widgets/single_page_scaffold.dart';
 
 late final bool _initialized;
@@ -20,9 +20,9 @@ bool get isInitialized {
 SinglePageViews buildSinglePageViews(
   List<SinglePageView> views, {
   SinglePageView? initialView,
-  DrawerState initialDrawerState = DrawerState.collapsed,
+  NavBarState initialDrawerState = NavBarState.collapsed,
   bool fixedDrawerState = false,
-  DrawerStyle drawerStyle = const DrawerStyle(),
+  NavBarStyle navBarStyle = const NavBarStyle(),
 }) {
   if (views.isEmpty) {
     throw Exception('views cannot be empty');
@@ -34,13 +34,13 @@ SinglePageViews buildSinglePageViews(
 
   setActiveViewController(ActiveViewController(initialView ?? views[0]));
 
-  setInitialDrawerState(initialDrawerState);
+  setInitialNavBarState(initialDrawerState);
 
-  setFixedDrawerState(fixedDrawerState);
+  setFixedNavBarState(fixedDrawerState);
 
-  setDrawerStyle(drawerStyle);
+  setNavBarStyle(navBarStyle);
 
-  setDrawerStateController(DrawerStateController(initialDrawerState));
+  setNavBarStateController(NavBarStateController(initialDrawerState));
 
   _initialized = true;
 
@@ -58,9 +58,12 @@ class SinglePageViews extends StatelessWidget {
     }
 
     return Stack(
+      alignment: navBarStyle.position.isLeft
+          ? AlignmentDirectional.topStart
+          : AlignmentDirectional.topEnd,
       children: [
         SinglePageScaffold(),
-        SinglePageDrawer(),
+        SinglePageNavBar(),
       ],
     );
   }

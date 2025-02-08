@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:single_page_views/model/nav_bar_position.dart';
 import 'package:single_page_views/model/single_page_view.dart';
 import 'package:single_page_views/single_page_views.dart';
+import 'package:single_page_views/styles/nav_bar_style.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,12 +14,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: buildSinglePageViews(views));
+        home: buildSinglePageViews(
+          views,
+          navBarStyle: NavBarStyle(position: NavBarPosition.right),
+        ));
   }
 }
 

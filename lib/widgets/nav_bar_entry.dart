@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:single_page_views/controllers/active_view_controller.dart';
-import 'package:single_page_views/controllers/drawer_state_controller.dart';
-import 'package:single_page_views/model/drawer_state.dart';
+import 'package:single_page_views/controllers/nav_bar_state_controller.dart';
+import 'package:single_page_views/model/nav_bar_state.dart';
 import 'package:single_page_views/model/single_page_view.dart';
-import 'package:single_page_views/styles/drawer_style.dart';
+import 'package:single_page_views/styles/nav_bar_style.dart';
 
-class DrawerEntry extends StatelessWidget {
-  const DrawerEntry({
+class NavEntry extends StatelessWidget {
+  const NavEntry({
     super.key,
     required this.view,
   });
@@ -26,14 +26,14 @@ class DrawerEntry extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             view.leading,
-            ValueListenableBuilder<DrawerState>(
-                valueListenable: drawerStateController,
+            ValueListenableBuilder<NavBarState>(
+                valueListenable: navBarStateController,
                 builder: (context, drawerState, _) {
                   if (drawerState.isCollapsed) return const SizedBox.shrink();
 
                   return SizedBox(
                     width:
-                        drawerStyle.expandedWidth - drawerStyle.collapsedWidth,
+                        navBarStyle.expandedWidth - navBarStyle.collapsedWidth,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [view.title],
