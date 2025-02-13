@@ -5,8 +5,8 @@ import 'package:single_page_views/model/nav_bar_state.dart';
 import 'package:single_page_views/model/single_page_view.dart';
 import 'package:single_page_views/styles/nav_bar_style.dart';
 
-class NavEntry extends StatelessWidget {
-  const NavEntry({
+class NavBarEntry extends StatelessWidget {
+  const NavBarEntry({
     super.key,
     required this.view,
   });
@@ -22,27 +22,44 @@ class NavEntry extends StatelessWidget {
           opacity: activeView == view ? 1 : 0.5,
           child: child,
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            view.leading,
-            ValueListenableBuilder<NavBarState>(
-                valueListenable: navBarStateController,
-                builder: (context, drawerState, _) {
-                  if (drawerState.isCollapsed) return const SizedBox.shrink();
-
-                  return SizedBox(
-                    width:
-                        navBarStyle.expandedWidth - navBarStyle.collapsedWidth,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [view.title],
-                    ),
-                  );
-                })
-          ],
-        ),
+        child: navBarStyle.position.isVertical
+            ? Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: _children,
+              )
+            : Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: _children,
+              ),
       ),
     );
   }
+
+  List<Widget> get _children => [
+        view.leading,
+        ValueListenableBuilder<NavBarState>(
+            valueListenable: navBarStateController,
+            builder: (context, drawerState, _) {
+              if (drawerState.isCollapsed) return const SizedBox.shrink();
+
+              final heigth = navBarStyle.position.isVertical
+                  ? null
+                  : navBarStyle.expandedThickness -
+                      navBarStyle.collapsedThickness;
+
+              final width = navBarStyle.position.isHorizontal
+                  ? null
+                  : navBarStyle.expandedThickness -
+                      navBarStyle.collapsedThickness;
+
+              return SizedBox(
+                height: heigth,
+                width: width,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [view.title],
+                ),
+              );
+            })
+      ];
 }

@@ -22,7 +22,11 @@ class MyApp extends StatelessWidget {
         ),
         home: buildSinglePageViews(
           views,
-          navBarStyle: NavBarStyle(position: NavBarPosition.right),
+          navBarStyle: NavBarStyle(
+            color: Colors.red,
+            position: NavBarPosition.top,
+            expandedThickness: 100,
+          ),
         ));
   }
 }
@@ -35,6 +39,14 @@ final views = <SinglePageView>[
     ),
     leading: Icon(Icons.home, color: Colors.white),
     title: Text('Home', style: TextStyle(color: Colors.white)),
+  ),
+  SinglePageView(
+    scaffold: Scaffold(
+      appBar: AppBar(title: Text('Test')),
+      body: const Center(child: Text('Test content')),
+    ),
+    leading: Icon(Icons.abc, color: Colors.white),
+    title: Text('Test', style: TextStyle(color: Colors.white)),
   ),
   SinglePageView(
     scaffold: Scaffold(

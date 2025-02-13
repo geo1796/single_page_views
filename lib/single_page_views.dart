@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:single_page_views/controllers/active_view_controller.dart';
 import 'package:single_page_views/controllers/nav_bar_state_controller.dart';
+import 'package:single_page_views/model/nav_bar_position.dart';
 import 'package:single_page_views/model/nav_bar_state.dart';
 import 'package:single_page_views/model/single_page_view.dart';
 import 'package:single_page_views/styles/nav_bar_style.dart';
-import 'package:single_page_views/widgets/single_page_nav_bar.dart';
+import 'package:single_page_views/widgets/horizontal_nav_bar.dart';
 import 'package:single_page_views/widgets/single_page_scaffold.dart';
+import 'package:single_page_views/widgets/vertical_nav_bar.dart';
 
 late final bool _initialized;
 
@@ -58,13 +60,26 @@ class SinglePageViews extends StatelessWidget {
     }
 
     return Stack(
-      alignment: navBarStyle.position.isLeft
-          ? AlignmentDirectional.topStart
-          : AlignmentDirectional.topEnd,
+      alignment: alignment,
       children: [
         SinglePageScaffold(),
-        SinglePageNavBar(),
+        navBarStyle.position.isHorizontal
+            ? HorizontalNavBar()
+            : VerticalNavBar(),
       ],
     );
+  }
+
+  AlignmentDirectional get alignment {
+    switch (navBarStyle.position) {
+      case NavBarPosition.left:
+        return AlignmentDirectional.centerStart;
+      case NavBarPosition.top:
+        return AlignmentDirectional.topCenter;
+      case NavBarPosition.right:
+        return AlignmentDirectional.centerEnd;
+      case NavBarPosition.bottom:
+        return AlignmentDirectional.bottomCenter;
+    }
   }
 }

@@ -11,8 +11,8 @@ class NavBarStyle {
   final Color color;
   final Color headerColor;
   final double spacing;
-  final double expandedWidth;
-  final double collapsedWidth;
+  final double expandedThickness;
+  final double collapsedThickness;
   final NavBarPosition position;
   final Widget? customExpandedHeader;
   final Widget? customCollapsedHeader;
@@ -21,8 +21,8 @@ class NavBarStyle {
     this.color = Colors.blue,
     this.headerColor = Colors.white,
     this.spacing = 25.0,
-    this.expandedWidth = 150.0,
-    this.collapsedWidth = 50.0,
+    this.expandedThickness = 150.0,
+    this.collapsedThickness = 50.0,
     this.position = NavBarPosition.left,
     this.customExpandedHeader,
     this.customCollapsedHeader,

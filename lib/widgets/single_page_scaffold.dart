@@ -9,8 +9,8 @@ class SinglePageScaffold extends StatelessWidget {
   const SinglePageScaffold({super.key});
 
   double get _drawerWidth => navBarStateController.isExpanded
-      ? navBarStyle.expandedWidth
-      : navBarStyle.collapsedWidth;
+      ? navBarStyle.expandedThickness
+      : navBarStyle.collapsedThickness;
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +18,8 @@ class SinglePageScaffold extends StatelessWidget {
       valueListenable: navBarStateController,
       builder: (context, _, child) => Positioned(
         left: navBarStyle.position.isLeft ? _drawerWidth : 0,
-        top: 0,
-        bottom: 0,
+        top: navBarStyle.position.isTop ? _drawerWidth : 0,
+        bottom: navBarStyle.position.isBottom ? _drawerWidth : 0,
         right: navBarStyle.position.isRight ? _drawerWidth : 0,
         child: child!,
       ),
